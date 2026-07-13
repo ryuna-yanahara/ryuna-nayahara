@@ -28,6 +28,5 @@
 
 
 ### 📫 Contact
-- **University Email:** [大学のメールアドレスなどがあれば]
-- **SNS/Other:** [Twitter(X)やポートフォリオサイトのリンクがあれば]
+- **University Email:** [<20124041@kaishi-pu.ac.jp>]
 ```
