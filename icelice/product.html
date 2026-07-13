@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- (headタグの中身はindex.htmlと同じ) -->
+       <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雪熟果実ストア | 南魚沼の雪が育んだ、特別な果実</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome (カートアイコン用) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">雪熟果実</a>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html#concept">私たちのこだわり</a></li>
+                    <li><a href="product.html">商品一覧</a></li>
+                    <li><a href="cart.html" class="cart-icon"><i class="fas fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a></li>
+                </ul>
+            </nav>
+            <button class="hamburger-menu" id="hamburger-menu"><span></span><span></span><span></span></button>
+        </div>
+    </header>
+    <main>
+        <div class="page-header">
+            <h1>商品一覧</h1>
+            <p>雪室が引き出した、自然の甘みをご堪能ください。</p>
+        </div>
+        <section id="products" class="section-container">
+            <div class="product-grid">
+                <!-- 商品カード1: いちご -->
+                <div class="product-card">
+                    <a href="product-detail.html?id=strawberry">
+                        <img src="images/product-strawberry.jpg" alt="雪どけいちご">
+                    </a>
+                    <h3>雪どけいちご「越後姫」</h3>
+                    <p class="price">¥3,500 (税込)</p>
+                    <a href="product-detail.html?id=strawberry" class="btn">詳しく見る</a>
+                </div>
+                <!-- 商品カード2: りんご -->
+                <div class="product-card">
+                    <a href="product-detail.html?id=apple">
+                        <img src="images/product-apple.jpg" alt="雪下りんご">
+                    </a>
+                    <h3>雪下りんご「ふじ」</h3>
+                    <p class="price">¥4,200 (税込)</p>
+                    <a href="product-detail.html?id=apple" class="btn">詳しく見る</a>
+                </div>
+                 <!-- 商品カード3: 梨 -->
+                <div class="product-card">
+                    <img src="images/product-pear.jpg" alt="雪室梨">
+                    <h3>雪室梨「ル・レクチェ」</h3>
+                    <p class="price">¥4,800 (税込)</p>
+                    <a href="#" class="btn btn-disabled">準備中</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer"><!-- (footerはindex.htmlと同じ) --></footer>
+    <script src="script.js"></script>
+</body>
+</html>

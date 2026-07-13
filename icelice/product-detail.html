@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- (headタグの中身はindex.htmlと同じ) -->
+       <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雪熟果実ストア | 南魚沼の雪が育んだ、特別な果実</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome (カートアイコン用) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">雪熟果実</a>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html#concept">私たちのこだわり</a></li>
+                    <li><a href="product.html">商品一覧</a></li>
+                    <li><a href="cart.html" class="cart-icon"><i class="fas fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a></li>
+                </ul>
+            </nav>
+            <button class="hamburger-menu" id="hamburger-menu"><span></span><span></span><span></span></button>
+        </div>
+    </header>
+    <main>
+        <!-- この中身はJavaScriptによって動的に生成されます -->
+        <div id="product-detail-root" class="product-detail-container">
+            <!-- 例：ローディング表示 -->
+            <p>商品を読み込んでいます...</p>
+        </div>
+    </main>
+
+    <footer class="footer"><!-- (footerはindex.htmlと同じ) --></footer>
+    <script src="script.js"></script>
+</body>
+</html>
