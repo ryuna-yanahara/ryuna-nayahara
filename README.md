@@ -24,6 +24,7 @@
 | [シューティングゲーム](https://ryuna-yanahara.github.io/ryuna-nayahara/%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%82%B2%E3%83%BC%E3%83%A0%E7%9A%84%E3%81%AA/inex.html) | 1年生の時に学内ハッカソンというイベントに参加した時のものです | HTML,JS |
 | [icelice](https://ryuna-yanahara.github.io/ryuna-nayahara/icelice/index.html) | 架空の企業「雪結」のホームぺージ:3年次のビジコンのような授業のプレゼンでデモとして使用したものです | HTML/CSS,JS |
 |slotsimulator| ※PC専用 / Java実行環境が必要です ：2年次の臨地実務実習後の成長を確かめるため学内ハッカソンにて作成し優勝をいただいたパチスロのスロットゲームです| java,HTML,CSS,JS |
+|tosho|※PC専用 / Java実行環境が必要です　：2年次の臨地実務実習にて作成した図書管理ツールです|java,HTML,CSS,JS|
 
 ---
 
