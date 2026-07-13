@@ -22,7 +22,7 @@
 | :--- | :--- | :--- |
 | [作品名1](URL) | ここに作品の短い説明文を記述します。 | Python, Flask |
 | [作品名2](URL) | ここに作品の短い説明文を記述します。 | Java, Swing |
-| [架空の企業「雪結」のホームぺージ](https://htmlpreview.github.io/?https://github.com/ryuna-yanahara/ryuna-nayahara/blob/main/icelice/index.html) | ここに作品の短い説明文を記述します。 | HTML/CSS, JS |
+| [架空の企業「雪結」のホームぺージ]([https://htmlpreview.github.io/?https://github.com/ryuna-yanahara/ryuna-nayahara/blob/main/icelice/index.html](https://ryuna-yanahara.github.io/ryuna-nayahara/icelice/index.html)) | ここに作品の短い説明文を記述します。 | HTML/CSS, JS |
 
 ---
 
