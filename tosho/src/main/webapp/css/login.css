@@ -1,0 +1,81 @@
+@charset "UTF-8";
+html, body{
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+.login-container{
+	display: flex;
+	width: 100%;
+	height: 100vh;
+	align-items: stretch;
+	justify-content: flex-start;
+	margin: 0;
+	padding: 0;
+}
+.right-img{
+	flex: 0 0 50%;
+	overflow: hidden;
+	background-image: url('/tosho/img/books.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: #f0f0f0;
+}
+
+.login-form{
+	flex: 0 0 50%;
+	position: relative;
+	z-index: 10;
+	background-color: rgb(0, 0, 0);
+	color: rgb(255, 255, 255);
+	height: 100%;
+	padding: 40px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+.login-form h2{
+	margin-bottom: 20px;
+	font-size: 24px;
+}
+.login-form label{
+	align-self: flex-start;
+	width: 80%;
+	max-width: 300px;
+	margin-bottom: 5px;
+	text-align: left;
+}
+.login-form input[type="text"],
+.login-form input[type="password"]{
+	padding: 12px;
+	margin-bottom: 15px;
+	width: 80%;
+	max-width: 300px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	color: black;
+	background-color: white;
+}
+.login-form button{
+	padding: 12px 30px;
+	margin-top: 20px;
+	background-color: rgb(128, 128, 255);
+	color: white;
+	border: none;
+	border-radius: 4px;
+	width: 80%;
+	max-width: 300px;
+	cursor: pointer;
+}
+.login-form button:hover{
+	background-color: rgb(0, 0, 160);
+	color: white;
+}
+.login-form p{
+	margin-top: 15px;
+	font-weight: bold;
+}

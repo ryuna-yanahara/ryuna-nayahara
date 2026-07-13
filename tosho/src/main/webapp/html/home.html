@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ホーム画面</title>
+<link rel="stylesheet" type="text/css" href="../css/home.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"/>
+<link href="https://fonts.googleapis.com/css2?family=Concert+One&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body class="move">
+	<div class="bg">
+		<div class="bg-content"></div>
+		<div class="bg-content"></div>
+		<div class="bg-content"></div>
+		<div class="bg-content"></div>
+		<div class="bg-content"></div>
+		<div class="bg-content"></div>
+		<div class="bg-content"></div>
+		<div class="bg-content"></div>
+		<div class="bg-content"></div>
+		<div class="bg-content"></div>
+	</div>
+	<ul id="nav">
+		<li class="nav-link">
+			<h1 data-name="SEARCH"><a href="../index.jsp">SEARCH</h1></a>
+		</li>
+		<li class="nav-link">
+			<h1 data-name="RENTINGHISTORY"><a href="../MypgeLendHistoryServlet">RENTINGHISTORY</h1></a>
+		</li>
+	</ul>
+
+	<!-- ------------ -->
+	<!-- Social links -->
+	<aside class="links">
+		<nav class="_links-list">
+			<a href="home.html"><span class="material-symbols-outlined">home</span></a>
+			<a href="../Mypage.jsp"><span class="material-symbols-outlined">person</span></a>
+			<a href="../login.jsp"><span class="material-symbols-outlined">logout</span></a>
+		</nav>
+	</aside>
+	<!-- ------------ -->
+	<script>
+	(function ($){
+		'use strict';
+		$(window).on('load', function(){
+			$('body').addClass('active');
+		});
+	})(jQuery);
+	</script>
+</body>
+</html>
