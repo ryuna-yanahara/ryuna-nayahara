@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スロットゲーム Ver.3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>スロットゲーム オンライン Ver.3</h1>
+
+    <div class="game-container">
+        <!-- 上部情報表示エリア -->
+        <div id="info-panel" class="info-panel">
+            <div class="info-item">ゲーム数: <span id="game-count">0</span></div>
+            <div class="info-item">総差枚: <span id="total-diff-medals">0</span></div>
+            <div class="info-item">状態: <span id="game-state">通常</span></div>
+            <div class="info-item">CZスルー: <span id="cz-through-count">0</span></div>
+        </div>
+
+        <!-- メイン表示エリア -->
+        <div id="main-display" class="main-display">
+            <div id="message-area" class="message-area">読み込み中...</div>
+        </div>
+
+			<!-- リールエリア (3x3対応) -->
+			<div class="reels-container">
+			    <div class="reel" id="reel1">
+			        <div class="symbol"><img src="" class="sym-img"></div>
+			        <div class="symbol"><img src="" class="sym-img"></div>
+			        <div class="symbol"><img src="" class="sym-img"></div>
+			    </div>
+			    <div class="reel" id="reel2">
+			        <div class="symbol"><img src="" class="sym-img"></div>
+			        <div class="symbol"><img src="" class="sym-img"></div>
+			        <div class="symbol"><img src="" class="sym-img"></div>
+			    </div>
+			    <div class="reel" id="reel3">
+			        <div class="symbol"><img src="" class="sym-img"></div>
+			        <div class="symbol"><img src="" class="sym-img"></div>
+			        <div class="symbol"><img src="" class="sym-img"></div>
+			    </div>
+			</div>
+
+        <!-- 下部情報表示エリア -->
+        <div id="player-panel" class="player-panel">
+             <div class="info-item">所持金: <span id="player-money">---</span>円</div>
+             <div class="info-item">メダル: <span id="player-medals">0</span></div>
+             <div class="info-item">払い出し: <span id="payout-medals">0</span></div>
+        </div>
+
+        <!-- 操作エリア -->
+        <div class="controls">
+            <div class="control-item">
+                <label>投入金額:</label>
+                <input type="number" id="insert-money-amount" value="1000" step="1000">
+                <button id="insert-money-button">お金を入れる（借金可）</button>
+            </div>
+            <div class="control-item">
+                <button id="lever" class="control-button">レバーON</button>
+                <button id="stop1" class="control-button stop-button" disabled>ストップ1</button>
+                <button id="stop2" class="control-button stop-button" disabled>ストップ2</button>
+                <button id="stop3" class="control-button stop-button" disabled>ストップ3</button>
+            </div>
+            
+            <!-- 追加機能エリア -->
+            <div class="extra-controls">
+                <button id="ranking-button" class="menu-button">ランキングを見る</button>
+                <button id="save-quit-button" class="quit-button">保存して終了</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
