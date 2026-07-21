@@ -83,66 +83,71 @@ export default function OrderPage() {
   }
 
   // --- 注文確定処理（重複防止強化版） ---
-  const submitOrder = async () => {
-    // すでに処理中なら何もしない（連打防止）
+const submitOrder = async () => {
+    // 1. 二重送信ガード
     if (loading || cart.length === 0) return
-    
     setLoading(true)
     
     try {
-      // 1. カート内の重複を念のためここで最終合算する
-      const consolidatedCart: Record<number, CartItem> = {}
-      cart.forEach(item => {
-        if (consolidatedCart[item.id]) {
-          consolidatedCart[item.id].qty += item.qty
-        } else {
-          consolidatedCart[item.id] = { ...item }
-        }
-      })
-      const finalCartItems = Object.values(consolidatedCart)
-      const total = finalCartItems.reduce((sum, item) => sum + (item.price * item.qty), 0)
+      // 【ここがポイント：重複排除ロジック】
+      // カートの中に同じIDの商品が複数並んでいても、最初の1つだけを有効にする
+      const uniqueCart = cart.filter((item, index, self) =>
+        index === self.findIndex((t) => t.id === item.id)
+      );
+
+      // 合計金額は、この「重複を取り除いたリスト」を元に計算する
+      const total = uniqueCart.reduce((sum, item) => sum + (item.price * item.qty), 0);
 
       // 2. 注文(orders)の作成
       const { data: orderData, error: orderError } = await supabase
         .from('orders')
-        .insert([{ customer_memo: memo, total_price: total, status: 'pending' }])
-        .select()
+        .insert([{ 
+          customer_memo: memo, 
+          total_price: total, 
+          status: 'pending' 
+        }])
+        .select();
 
-      if (orderError || !orderData || orderData.length === 0) throw orderError
+      if (orderError || !orderData || orderData.length === 0) throw orderError;
 
-      const orderId = orderData[0].id
+      const orderId = orderData[0].id;
 
-      // 3. 注文明細(order_items)の一括作成
-      const orderItemsToInsert = finalCartItems.map(item => ({
+      // 3. 注文明細(order_items)を「重複のないリスト」で作成
+      const orderItemsToInsert = uniqueCart.map(item => ({
         order_id: orderId,
         menu_id: item.id,
         quantity: item.qty
-      }))
+      }));
 
-      const { error: itemsError } = await supabase.from('order_items').insert(orderItemsToInsert)
-      if (itemsError) throw itemsError
+      // 重複のないきれいなデータを一括保存
+      const { error: itemsError } = await supabase
+        .from('order_items')
+        .insert(orderItemsToInsert);
+
+      if (itemsError) throw itemsError;
 
       // 4. 在庫の減算
-      for (const item of finalCartItems) {
+      for (const item of uniqueCart) {
         await supabase.rpc('decrement_stock', {
           row_id: item.id,
           quantity_to_sub: item.qty
-        })
+        });
       }
 
-      // 5. 成功時のリセット
-      setLastOrder({ id: orderId })
-      setCart([])
-      setMemo('')
-      await fetchData()
+      // 5. 完了
+      setLastOrder({ id: orderId });
+      setCart([]);
+      setMemo('');
+      await fetchData();
+
     } catch (e) {
-      console.error('注文エラー:', e)
-      alert('注文処理中にエラーが発生しました。もう一度お試しください。')
+      console.error('注文失敗:', e);
+      alert('エラーが発生しました。注文が重複した可能性があります。');
     } finally {
-      // 少し間を置いてからロックを解除（より安全に）
-      setTimeout(() => setLoading(false), 1000)
+      // 念のため1秒間ボタンをロックする
+      setTimeout(() => setLoading(false), 1000);
     }
-  }
+  };
 
   if (lastOrder) {
     return (
