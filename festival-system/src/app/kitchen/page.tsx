@@ -3,12 +3,14 @@ import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase'
 import { CheckCircle, Clock, PlayCircle, History, ClipboardList } from 'lucide-react'
 
+// 型定義に order_items の id を追加
 interface OrderResponse {
   id: number;
   customer_memo: string | null;
   status: string;
   created_at: string;
   order_items: {
+    id: number; // 個別のアイテムID
     quantity: number;
     menus: {
       name: string;
@@ -19,8 +21,6 @@ interface OrderResponse {
 export default function KitchenPage() {
   const [orders, setOrders] = useState<OrderResponse[]>([])
   const [viewMode, setViewMode] = useState<'active' | 'history'>('active')
-  
-  // --- 【新設】1分ごとに更新するためのステート ---
   const [now, setNow] = useState(new Date())
 
   const fetchOrders = useCallback(async () => {
@@ -28,8 +28,8 @@ export default function KitchenPage() {
       .from('orders')
       .select(`
         id, customer_memo, status, created_at,
-        order_items ( quantity, menus ( name ) )
-      `)
+        order_items ( id, quantity, menus ( name ) )
+      `) // ここに id を追加して重複を判別できるようにした
 
     if (viewMode === 'active') {
       query = query.neq('status', 'completed').order('created_at', { ascending: true })
@@ -45,19 +45,17 @@ export default function KitchenPage() {
   useEffect(() => {
     (async () => { await fetchOrders() })()
 
-    // 1. リアルタイムDB監視
     const channel = supabase.channel('kitchen-realtime')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'orders' }, () => { void fetchOrders() })
       .subscribe()
 
-    // 2. 【重要】1分ごとに「現在時刻」を更新するタイマー
     const timer = setInterval(() => {
       setNow(new Date())
-    }, 60000) // 60000ms = 1分
+    }, 60000)
 
     return () => { 
       void supabase.removeChannel(channel)
-      clearInterval(timer) // クリーンアップ
+      clearInterval(timer)
     }
   }, [fetchOrders])
 
@@ -66,7 +64,6 @@ export default function KitchenPage() {
     await fetchOrders()
   }
 
-  // 時刻表示用
   const formatTime = (isoString: string) => {
     return new Date(isoString).toLocaleTimeString('ja-JP', {
       hour: '2-digit',
@@ -74,10 +71,8 @@ export default function KitchenPage() {
     })
   }
 
-  // --- 【修正】引数に now を使うように変更 ---
   const getWaitTime = (createdAt: string) => {
     const diffMs = now.getTime() - new Date(createdAt).getTime()
-    // 60000ms（1分）で割り、Math.max(0, ...) で最低値を0に固定する
     const diffMin = Math.floor(diffMs / 60000)
     return `${Math.max(0, diffMin)}分`
   }
@@ -113,7 +108,6 @@ export default function KitchenPage() {
                 <span className={`px-3 py-1 rounded-full text-sm font-black uppercase shadow-inner ${
                   order.status === 'pending' ? 'bg-red-500/20 text-red-400' : 'bg-yellow-500/20 text-yellow-400'
                 }`}>
-                  {/* ここが1分ごとに自動更新されます */}
                   {getWaitTime(order.created_at)} 経過
                 </span>
               </div>
@@ -127,13 +121,23 @@ export default function KitchenPage() {
             </div>
 
             <div className="space-y-2 mb-6 flex-1">
-              <p className="text-emerald-400 font-bold text-sm uppercase tracking-wider font-mono">Order List</p>
-              {order.order_items.map((item, idx) => (
-                <div key={idx} className="flex justify-between text-2xl border-b border-slate-700/50 pb-1 text-white">
-                  <span className="font-bold">{item.menus?.name || '不明'}</span>
-                  <span className="font-black text-yellow-400 text-3xl">×{item.quantity}</span>
-                </div>
-              ))}
+              <p className="text-emerald-400 font-bold text-xs uppercase tracking-wider font-mono">Order List</p>
+              {(() => {
+                // --- 重複排除のロジック ---
+                const seenIds = new Set();
+                return order.order_items
+                  .filter(item => {
+                    if (seenIds.has(item.id)) return false;
+                    seenIds.add(item.id);
+                    return true;
+                  })
+                  .map((item, idx) => (
+                    <div key={item.id || idx} className="flex justify-between text-2xl border-b border-slate-700/50 pb-1 text-white">
+                      <span className="font-bold">{item.menus?.name || '不明'}</span>
+                      <span className="font-black text-yellow-400 text-3xl">×{item.quantity}</span>
+                    </div>
+                  ));
+              })()}
             </div>
 
             <div className="flex gap-2 mt-auto pt-4">
